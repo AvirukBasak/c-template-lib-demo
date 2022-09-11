@@ -1,8 +1,13 @@
 #include <stdio.h>
 #include "map.template.c.h"
 
-DefineMap(double, "%lf");
-DefineMap(int, "%d");
+// instanciating Map(int)
+MapDeclarePrototypes(int);
+MapDefine(int, "%d");
+
+// instanciating Map(double)
+MapDeclarePrototypes(double);
+MapDefine(double, "%lf");
 
 int main()
 {
