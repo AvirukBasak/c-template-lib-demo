@@ -1,10 +1,10 @@
-# 1 "code.c"
+# 1 "main.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 389 "<built-in>" 3
 # 1 "<command line>" 1
 # 1 "<built-in>" 2
-# 1 "code.c" 2
+# 1 "main.c" 2
 # 1 "/data/data/com.termux/files/usr/include/stdio.h" 1 3 4
 # 41 "/data/data/com.termux/files/usr/include/stdio.h" 3 4
 # 1 "/data/data/com.termux/files/usr/include/sys/cdefs.h" 1 3 4
@@ -810,7 +810,7 @@ static __inline__ FILE* tmpfile() {
  }
  return ((void*)0);
 }
-# 2 "code.c" 2
+# 2 "main.c" 2
 # 1 "./map.template.c.h" 1
 
 # 1 "/data/data/com.termux/files/usr/lib/clang/14.0.3/include/stdbool.h" 1 3
@@ -1108,9 +1108,9 @@ static __inline long strtol_l(const char* __s, char** __end_ptr, int __base, loc
 }
 # 277 "/data/data/com.termux/files/usr/include/stdlib.h" 2 3 4
 # 4 "./map.template.c.h" 2
-# 3 "code.c" 2
+# 3 "main.c" 2
 
-typedef struct map_double { int key; double value; struct map_double *prev; struct map_double *next; struct map_double *end;} *map_double;map_double map_double_newmap();map_double map_doublefind_key(map_double m, int key);double map_double_get(map_double m, int key, _Bool *found);_Bool map_double_set(map_double m, int key, double val);_Bool map_double_del(map_double m, int key);void map_double_print(map_double m);void map_double_free(map_double *m);map_double map_double_newmap(){ map_double m = ({ struct map_double *tmp = calloc(1, sizeof(struct map_double)); if (!tmp) abort(); tmp;}); m->key = 0; m->value = 0; m->prev = ((void*)0); m->next = ((void*)0); m->end = m; return m;}map_double map_double_find_key(map_double m, int key){ if (!m) abort(); map_double p = m->next; while (p != ((void*)0)) { if (p->key == key) return p; p = p->next; } return ((void*)0);}double map_double_get(map_double m, int key, _Bool *found){ if (!m) abort(); map_double node = map_double_find_key(m, key); if (!node) { *found = 0; return 0; } *found= 1; return node->value;}_Bool map_double_set(map_double m, int key, double val){ if (!m) abort(); map_double node = map_double_find_key(m, key); if (node) { node->value = val; } else { node = ({ struct map_double *tmp = calloc(1, sizeof(struct map_double)); if (!tmp) abort(); tmp;}); node->key = key; node->value = val; node->prev = m->end; node->next = ((void*)0); node->end = ((void*)0); if (m->end) m->end->next = node; else m->next = node; m->end = node; } return 1;}_Bool map_double_del(map_double m, int key){ if (!m) abort(); map_double node = map_double_find_key(m, key); if (!node) return 0; map_double tmp = node; node = node->prev; node->next = tmp->next; tmp->next->prev = node; free(tmp); return 1; }void map_double_print(map_double m){ if (!m) abort(); map_double p = m->next; printf("{\n"); while (p != ((void*)0)) { printf("    %d => %""lf", p->key, p->value); printf("\n"); p = p->next; } printf("}\n");}void map_double_free(map_double *m){ if (!*m) abort(); map_double p = *m; while (p != ((void*)0)) { map_double tmp = p; p = p->next; free(tmp); } *m = ((void*)0);};
+typedef struct map_double { int key; double value; struct map_double *prev; struct map_double *next; struct map_double *end;} *map_double;map_double map_double_newmap();map_double map_doublefind_key(map_double m, int key);double map_double_get(map_double m, int key, _Bool *found);_Bool map_double_set(map_double m, int key, double val);_Bool map_double_del(map_double m, int key);void map_double_print(map_double m);void map_double_free(map_double *m);map_double map_double_newmap(){ map_double m = ({ struct map_double *tmp = calloc(1, sizeof(struct map_double)); if (!tmp) abort(); tmp;}); m->key = 0; m->value = 0; m->prev = ((void*)0); m->next = ((void*)0); m->end = m; return m;}map_double map_double_find_key(map_double m, int key){ if (!m) abort(); map_double p = m->next; while (p != ((void*)0)) { if (p->key == key) return p; p = p->next; } return ((void*)0);}double map_double_get(map_double m, int key, _Bool *found){ if (!m) abort(); map_double node = map_double_find_key(m, key); if (!node) { *found = 0; return 0; } *found = 1; return node->value;}_Bool map_double_set(map_double m, int key, double val){ if (!m) abort(); map_double node = map_double_find_key(m, key); if (node) { node->value = val; } else { node = ({ struct map_double *tmp = calloc(1, sizeof(struct map_double)); if (!tmp) abort(); tmp;}); node->key = key; node->value = val; node->prev = m->end; node->next = ((void*)0); node->end = ((void*)0); if (m->end) m->end->next = node; else m->next = node; m->end = node; } return 1;}_Bool map_double_del(map_double m, int key){ if (!m) abort(); map_double node = map_double_find_key(m, key); if (!node) return 0; map_double tmp = node; node = node->prev; node->next = tmp->next; tmp->next->prev = node; free(tmp); return 1; }void map_double_print(map_double m){ if (!m) abort(); map_double p = m->next; printf("{\n"); while (p != ((void*)0)) { printf("    %d => " "%lf", p->key, p->value); printf("\n"); p = p->next; } printf("}\n");}void map_double_free(map_double *m){ if (!*m) abort(); map_double p = *m; while (p != ((void*)0)) { map_double tmp = p; p = p->next; free(tmp); } *m = ((void*)0);};
 
 int main()
 {

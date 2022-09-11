@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "map.template.c.h"
 
-DefineMap(double, lf);
+DefineMap(double, "%lf");
 
 int main()
 {

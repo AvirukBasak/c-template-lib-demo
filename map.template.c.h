@@ -60,7 +60,7 @@ type map_##type##_get(map_##type m, int key, bool *found)\
         *found = false;\
         return 0;\
     }\
-    *found= true;\
+    *found = true;\
     return node->value;\
 }\
 \
@@ -104,7 +104,7 @@ void map_##type##_print(map_##type m)\
     map_##type p = m->next;\
     printf("{\n");\
     while (p != NULL) {\
-        printf("    %d => %"#tformat, p->key, p->value);\
+        printf("    %d => " tformat, p->key, p->value);\
         printf("\n");\
         p = p->next;\
     }\
