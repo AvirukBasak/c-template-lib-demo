@@ -14,7 +14,7 @@
     struct struct_t *tmp = calloc(1, sizeof(struct struct_t));              \
     if (!tmp) abort();                                                      \
     tmp;                                                                    \
-})                                                                          \
+})
 
 #define Map(vtype) map_##vtype
 #define MapFunc(vtype, func, ...) map_##vtype##_##func(__VA_ARGS__)
@@ -25,7 +25,7 @@
 #define MapDeclarePrototypes(vtype)                                         \
                                                                             \
 typedef struct map_##vtype {                                                \
-    uint64_t key;                                                           \
+    unsigned long int key;                                                  \
     vtype value;                                                            \
     struct map_##vtype *prev;                                               \
     struct map_##vtype *next;                                               \
@@ -33,13 +33,13 @@ typedef struct map_##vtype {                                                \
 } *map_##vtype;                                                             \
                                                                             \
 map_##vtype map_##vtype##_newmap();                                         \
-uint64_t map_##vtype##_hashString(const char *strkey);                      \
-map_##vtype map_##vtype##_findKey(map_##vtype m, uint64_t key);             \
-vtype map_##vtype##_get(map_##vtype m, uint64_t key, bool *found);          \
-bool map_##vtype##_set(map_##vtype m, uint64_t key, vtype val);             \
-bool map_##vtype##_del(map_##vtype m, uint64_t key);                        \
+unsigned long int map_##vtype##_hashString(const char *strkey);             \
+map_##vtype map_##vtype##_findKey(map_##vtype m, unsigned long int key);    \
+vtype map_##vtype##_get(map_##vtype m, unsigned long int key, bool *found); \
+bool map_##vtype##_set(map_##vtype m, unsigned long int key, vtype val);    \
+bool map_##vtype##_del(map_##vtype m, unsigned long int key);               \
 void map_##vtype##_print(map_##vtype m);                                    \
-void map_##vtype##_free(map_##vtype *m);                                    \
+void map_##vtype##_free(map_##vtype *m);
 
 /**
  * Defines the chosen map from template: generates the necessary function definitions
@@ -58,9 +58,9 @@ map_##vtype map_##vtype##_newmap()                                          \
     return m;                                                               \
 }                                                                           \
                                                                             \
-uint64_t map_##vtype##_hashString(const char *strkey)                       \
+unsigned long int map_##vtype##_hashString(const char *strkey)              \
 {                                                                           \
-    uint64_t hash = 0;                                                      \
+    unsigned long int hash = 0;                                             \
     size_t i, len = strlen(strkey);                                         \
     for (i = 0; i < len; i++) {                                             \
         hash = hash * 2 + (strkey[i] ^ hash);                               \
@@ -68,7 +68,7 @@ uint64_t map_##vtype##_hashString(const char *strkey)                       \
     return hash;                                                            \
 }                                                                           \
                                                                             \
-map_##vtype map_##vtype##_findKey(map_##vtype m, uint64_t key)              \
+map_##vtype map_##vtype##_findKey(map_##vtype m, unsigned long int key)     \
 {                                                                           \
     if (!m) abort();                                                        \
     map_##vtype p = m->next;                                                \
@@ -79,7 +79,7 @@ map_##vtype map_##vtype##_findKey(map_##vtype m, uint64_t key)              \
     return NULL;                                                            \
 }                                                                           \
                                                                             \
-vtype map_##vtype##_get(map_##vtype m, uint64_t key, bool *found)           \
+vtype map_##vtype##_get(map_##vtype m, unsigned long int key, bool *found)  \
 {                                                                           \
     if (!m) abort();                                                        \
     map_##vtype node = map_##vtype##_findKey(m, key);                       \
@@ -91,7 +91,7 @@ vtype map_##vtype##_get(map_##vtype m, uint64_t key, bool *found)           \
     return node->value;                                                     \
 }                                                                           \
                                                                             \
-bool map_##vtype##_set(map_##vtype m, uint64_t key, vtype val)              \
+bool map_##vtype##_set(map_##vtype m, unsigned long int key, vtype val)     \
 {                                                                           \
     if (!m) abort();                                                        \
     map_##vtype node = map_##vtype##_findKey(m, key);                       \
@@ -111,7 +111,7 @@ bool map_##vtype##_set(map_##vtype m, uint64_t key, vtype val)              \
     return true;                                                            \
 }                                                                           \
                                                                             \
-bool map_##vtype##_del(map_##vtype m, uint64_t key)                         \
+bool map_##vtype##_del(map_##vtype m, unsigned long int key)                \
 {                                                                           \
     if (!m) abort();                                                        \
     map_##vtype node = map_##vtype##_findKey(m, key);                       \
@@ -130,7 +130,7 @@ void map_##vtype##_print(map_##vtype m)                                     \
     map_##vtype p = m->next;                                                \
     printf("{\n");                                                          \
     while (p != NULL) {                                                     \
-        printf("    %" PRIu64 " => " vformat, p->key, p->value);            \
+        printf("    %lu" " => " vformat, p->key, p->value);                 \
         printf("\n");                                                       \
         p = p->next;                                                        \
     }                                                                       \
@@ -147,5 +147,4 @@ void map_##vtype##_free(map_##vtype *m)                                     \
         free(tmp);                                                          \
     }                                                                       \
     *m = NULL;                                                              \
-}                                                                           \
-
+}
