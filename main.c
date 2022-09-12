@@ -13,6 +13,7 @@ MapDefine(double, "%.03lf");
 
 #define TEST_HASHER 0
 
+// generates a random 32 B alphanumeric string
 void mkRandomStr(char str[33])
 {
     char a;
@@ -31,6 +32,7 @@ void mkRandomStr(char str[33])
     }
 }
 
+// tests MapFunc(vtype, hashString, str) function
 void testHasher()
 {
     int i;
