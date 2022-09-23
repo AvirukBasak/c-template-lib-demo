@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "map.template.c.h"
+#include "tlib/bst-map.template.c.h"
 
-// instanciating Map(int)
-MapDeclarePrototypes(int);
-MapDefine(int, "%d");
+// instanciating BstMap(int)
+BstMapDeclarePrototypes(int);
+BstMapDefine(int, "%d");
 
-// instanciating Map(double)
-MapDeclarePrototypes(double);
-MapDefine(double, "%.03lf");
+// instanciating BstMap(double)
+BstMapDeclarePrototypes(double);
+BstMapDefine(double, "%.03lf");
 
 #define TEST_HASHER 0
 
@@ -32,31 +32,31 @@ void mkRandomStr(char str[33])
     }
 }
 
-// tests MapFunc(vtype, hashString, str) function
+// tests BstMapFunc(vtype, hashString, str) function
 void testHasher()
 {
     int i;
     char str[33] = {0};
     for (i = 0; i < 100; i++) {
         mkRandomStr(str);
-        printf("%lu: %s\n", MapFunc(int, hashString, str), str);
+        printf("%lu: %s\n", BstMapFunc(int, hashString, str), str);
     }
 }
 
 int main()
 {
     // double map test
-    Map(double) m = MapFunc(double, newmap);
-    MapFunc(double, set, m, MapFunc(double, hashString, "key1"), 388.88);
-    MapFunc(double, set, m, MapFunc(double, hashString, "key2"), 26.90);
-    printf("double map = "); MapFunc(double, print, m);
-    MapFunc(double, free, &m);
+    BstMap(double) m = BstMapFunc(double, newmap);
+    BstMapFunc(double, set, m, BstMapFunc(double, hashString, "key1"), 388.88);
+    BstMapFunc(double, set, m, BstMapFunc(double, hashString, "key2"), 26.90);
+    printf("double map = "); BstMapFunc(double, print, m);
+    BstMapFunc(double, free, &m);
     // int map test
-    Map(int) m2 = MapFunc(int, newmap);
-    MapFunc(int, set, m2, MapFunc(int, hashString, "key1"), 12);
-    MapFunc(int, set, m2, MapFunc(int, hashString, "key2"), 46);
-    printf("int map = "); MapFunc(int, print, m2);
-    MapFunc(int, free, &m2);
+    BstMap(int) m2 = BstMapFunc(int, newmap);
+    BstMapFunc(int, set, m2, BstMapFunc(int, hashString, "key1"), 12);
+    BstMapFunc(int, set, m2, BstMapFunc(int, hashString, "key2"), 46);
+    printf("int map = "); BstMapFunc(int, print, m2);
+    BstMapFunc(int, free, &m2);
     // hash function test
     #if TEST_HASHER
     testHasher();

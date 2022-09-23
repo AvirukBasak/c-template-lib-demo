@@ -33,7 +33,7 @@
 /**
  * Generates function prototype definitions and typedefs for the map
  */
-#define MapDeclarePrototypes(vtype)                                                   \
+#define BstMapDeclarePrototypes(vtype)                                                \
                                                                                       \
 typedef struct bst_map_##vtype {                                                      \
     unsigned long int key;                                                            \
@@ -56,7 +56,7 @@ void bst_map_##vtype##_free(bst_map_##vtype *m);
  * Defines the chosen map from template: generates the necessary function definitions
  * NOTE: requires MapDeclarePrototypes(vtype, vformat)
  */
-#define MapDefine(vtype, vformat)                                                     \
+#define BstMapDefine(vtype, vformat)                                                  \
                                                                                       \
 bst_map_##vtype bst_map_##vtype##_newmap()                                            \
 {                                                                                     \
@@ -126,7 +126,7 @@ bool bst_map_##vtype##_set(bst_map_##vtype m, unsigned long int key, vtype val) 
 bool bst_map_##vtype##_del(bst_map_##vtype m, unsigned long int key)                  \
 {                                                                                     \
     if (!m) abort();                                                                  \
-    if (m->val == key && !m->left && !m->right) {                                     \
+    if (m->key == key && !m->left && !m->right) {                                     \
         free(m);                                                                      \
         return true;                                                                  \
     }                                                                                 \
@@ -136,7 +136,7 @@ bool bst_map_##vtype##_del(bst_map_##vtype m, unsigned long int key)            
         bst_map_##vtype tmp = p->right;                                               \
         while (tmp->left)                                                             \
             tmp = tmp->left;                                                          \
-        p->val = tmp->val;                                                            \
+        p->key = tmp->key;                                                            \
         if (tmp->parent == p) tmp->parent->right = tmp->right;                        \
         else tmp->parent->left = tmp->right;                                          \
         delete(tmp);                                                                  \
@@ -174,10 +174,10 @@ void bst_map_##vtype##_print(bst_map_##vtype m)                                 
 void bst_map_##vtype##_free(bst_map_##vtype *m)                                       \
 {                                                                                     \
     if (!m) return;                                                                   \
-    bool isroot = m->parent == NULL;                                                  \
     bst_map_##vtype p = *m;                                                           \
+    bool isroot = p->parent == NULL;                                                  \
     bst_map_##vtype##_free(&p->left);                                                 \
     bst_map_##vtype##_free(&p->right);                                                \
-    delete(tmp);                                                                      \
+    delete(p);                                                                        \
     if (isroot) *m = NULL;                                                            \
 }
