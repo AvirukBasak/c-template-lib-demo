@@ -65,7 +65,7 @@ bst_map_##vtype bst_map_##vtype##_newmap()                                      
     m->value = 0;                                                                     \
     m->parent = NULL;                                                                 \
     m->left = NULL;                                                                   \
-    m->right = m;                                                                     \
+    m->right = NULL;                                                                  \
     return m;                                                                         \
 }                                                                                     \
                                                                                       \
@@ -105,8 +105,11 @@ vtype bst_map_##vtype##_get(bst_map_##vtype m, unsigned long int key, bool *foun
 bool bst_map_##vtype##_set(bst_map_##vtype m, unsigned long int key, vtype val)       \
 {                                                                                     \
     if (!m) abort();                                                                  \
-    bst_map_##vtype node = bst_map_##vtype##_findKey(m, key);                         \
+    bst_map_##vtype node;                                                             \
+    if (!m->key && !m->left && !m->right) node = m;                                   \
+    else node = bst_map_##vtype##_findKey(m, key);                                    \
     if (node) {                                                                       \
+        node->key = key;                                                              \
         node->value = val;                                                            \
     } else {                                                                          \
         node = new(bst_map_##vtype);                                                  \
@@ -173,7 +176,7 @@ void bst_map_##vtype##_print(bst_map_##vtype m)                                 
                                                                                       \
 void bst_map_##vtype##_free(bst_map_##vtype *m)                                       \
 {                                                                                     \
-    if (!m) return;                                                                   \
+    if (!m || !(*m)) return;                                                          \
     bst_map_##vtype p = *m;                                                           \
     bool isroot = p->parent == NULL;                                                  \
     bst_map_##vtype##_free(&p->left);                                                 \
