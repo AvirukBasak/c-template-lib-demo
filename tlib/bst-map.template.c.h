@@ -32,6 +32,7 @@
 
 /**
  * Generates function prototype definitions and typedefs for the map
+ * vtype should be a primary datatype or typdefed (aliased) pointer
  */
 #define BstMapDeclarePrototypes(vtype)                                                \
                                                                                       \
@@ -54,15 +55,16 @@ void bst_map_##vtype##_free(bst_map_##vtype *m);
 
 /**
  * Defines the chosen map from template: generates the necessary function definitions
- * NOTE: requires MapDeclarePrototypes(vtype, vformat)
+ * vtype should be a primary datatype or typdefed (aliased) pointer
+ * NOTE: requires MapDeclarePrototypes(vtype, func_print(const value))
  */
-#define BstMapDefine(vtype, vformat)                                                  \
+#define BstMapDefine(vtype, func_print)                                               \
                                                                                       \
 bst_map_##vtype bst_map_##vtype##_newmap()                                            \
 {                                                                                     \
     bst_map_##vtype m = new(bst_map_##vtype);                                         \
     m->key = 0;                                                                       \
-    m->value = 0;                                                                     \
+    m->value = (vtype) 0;                                                             \
     m->parent = NULL;                                                                 \
     m->left = NULL;                                                                   \
     m->right = NULL;                                                                  \
@@ -96,7 +98,7 @@ vtype bst_map_##vtype##_get(bst_map_##vtype m, unsigned long int key, bool *foun
     bst_map_##vtype node = bst_map_##vtype##_findKey(m, key);                         \
     if (!node) {                                                                      \
         *found = false;                                                               \
-        return 0;                                                                     \
+        return (vtype) 0;                                                             \
     }                                                                                 \
     *found = true;                                                                    \
     return node->value;                                                               \
@@ -168,7 +170,9 @@ void bst_map_##vtype##_print(bst_map_##vtype m)                                 
     bst_map_##vtype p = m;                                                            \
     if (isroot) printf("{\n");                                                        \
     bst_map_##vtype##_print(p->left);                                                 \
-    printf("    %lu" " => " vformat, p->key, p->value);                               \
+    printf("    %lu -> ", p->key);                                                    \
+    const vtype value = p->value;                                                     \
+    func_print;                                                                       \
     printf("\n");                                                                     \
     bst_map_##vtype##_print(p->right);                                                \
     if (isroot) printf("}\n");                                                        \

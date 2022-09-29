@@ -5,11 +5,11 @@
 
 // instanciating BstMap(int)
 BstMapDeclarePrototypes(int);
-BstMapDefine(int, "%d");
+BstMapDefine(int, printf("%d", value));
 
 // instanciating BstMap(double)
 BstMapDeclarePrototypes(double);
-BstMapDefine(double, "%.03lf");
+BstMapDefine(double, printf("%.03lf", value));
 
 #define TEST_HASHER 0
 
