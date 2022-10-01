@@ -57,7 +57,7 @@ void stack_##vtype##_free(stack_##vtype *st_ptr);
  * NOTE: requires StackDeclarePrototypes(vtype)
  */
 #define StackDefine(vtype, func_print)                                               \
-                                                                                     \   
+                                                                                     \
 struct stack_##vtype##_node {                                                        \
     vtype val;                                                                       \
     stack_##vtype##_node next;                                                       \
@@ -80,7 +80,7 @@ bool stack_##vtype##_isEmpty(stack_##vtype st)                                  
 vtype stack_##vtype##_peek(stack_##vtype st)                                         \
 {                                                                                    \
     if (!st) abort();                                                                \
-    if (st->top_ptr) return top_ptr->val;                                            \
+    if (st->top_ptr) return st->top_ptr->val;                                        \
     else return (vtype) 0;                                                           \
 }                                                                                    \
                                                                                      \
@@ -109,8 +109,8 @@ vtype stack_##vtype##_pop(stack_##vtype st)                                     
                                                                                      \
 void stack_##vtype##_print(stack_##vtype st)                                         \
 {                                                                                    \
-    if (!m) abort();                                                                 \
-    stack_##vtype##_node p = n->top_ptr;                                             \
+    if (!st) abort();                                                                \
+    stack_##vtype##_node p = st->top_ptr;                                            \
     if (!p) { printf("{ }\n"); return; }                                             \
     printf("{\n");                                                                   \
     while (p) {                                                                      \
@@ -119,6 +119,7 @@ void stack_##vtype##_print(stack_##vtype st)                                    
         {                                                                            \
             const stack_##vtype st = NULL;                                           \
             const stack_##vtype##_node p = NULL;                                     \
+            (st, p);                                                                 \
             func_print;                                                              \
         }                                                                            \
         printf("\n");                                                                \
