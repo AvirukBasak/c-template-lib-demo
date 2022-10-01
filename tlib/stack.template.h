@@ -9,20 +9,20 @@
  * new function: returns a pointer to a struct type passed by allocating
  * memory using calloc
  */
-#define new(struct_t) ({                                                              \
-    struct struct_t *tmp = calloc(1, sizeof(struct struct_t));                        \
-    if (!tmp) abort();                                                                \
-    tmp;                                                                              \
+#define new(struct_t) ({                                                             \
+    struct struct_t *tmp = calloc(1, sizeof(struct struct_t));                       \
+    if (!tmp) abort();                                                               \
+    tmp;                                                                             \
 })
 
 /**
  * delete function: frees pointer and sets it to null
  */
-#define delete(ptr) ({                                                                \
-    if (ptr) {                                                                        \
-        free(ptr);                                                                    \
-        ptr = NULL;                                                                   \
-    }                                                                                 \
+#define delete(ptr) ({                                                               \
+    if (ptr) {                                                                       \
+        free(ptr);                                                                   \
+        ptr = NULL;                                                                  \
+    }                                                                                \
 })
 
 #define Stack(vtype) stack_##vtype
