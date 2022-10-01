@@ -1085,10 +1085,10 @@ double y1(double __x);
 double yn(int __n, double __x);
 # 3 "main-bstmap.c" 2
 
-# 1 "./tlib/bst-map.template.c.h" 1
+# 1 "./tlib/bst-map.template.h" 1
 
 # 1 "/data/data/com.termux/files/usr/lib/clang/15.0.1/include/stdbool.h" 1 3
-# 3 "./tlib/bst-map.template.c.h" 2
+# 3 "./tlib/bst-map.template.h" 2
 # 1 "/data/data/com.termux/files/usr/include/stdlib.h" 1 3 4
 # 32 "/data/data/com.termux/files/usr/include/stdlib.h" 3 4
 # 1 "/data/data/com.termux/files/usr/include/alloca.h" 1 3 4
@@ -1368,7 +1368,7 @@ static __inline long strtol_l(const char* __s, char** __end_ptr, int __base, loc
   return strtol(__s, __end_ptr, __base);
 }
 # 277 "/data/data/com.termux/files/usr/include/stdlib.h" 2 3 4
-# 4 "./tlib/bst-map.template.c.h" 2
+# 4 "./tlib/bst-map.template.h" 2
 # 5 "main-bstmap.c" 2
 
 

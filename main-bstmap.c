@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "tlib/bst-map.template.c.h"
+#include "tlib/bst-map.template.h"
 
 // instanciating BstMap(int)
 BstMapDeclarePrototypes(int);
