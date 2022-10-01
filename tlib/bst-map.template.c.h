@@ -166,11 +166,11 @@ bool bst_map_##vtype##_del(bst_map_##vtype m, unsigned long int key)            
                                                                                       \
 void bst_map_##vtype##_print(bst_map_##vtype m)                                       \
 {                                                                                     \
-    if (!m) return;                                                                   \
+    if (!m) abort();                                                                  \
     bool isroot = m->parent == NULL;                                                  \
     bst_map_##vtype p = m;                                                            \
     if (isroot) printf("{\n");                                                        \
-    bst_map_##vtype##_print(p->left);                                                 \
+    if (p->left) bst_map_##vtype##_print(p->left);                                    \
     printf("    %lu -> ", p->key);                                                    \
     const vtype value = p->value;                                                     \
     {                                                                                 \
@@ -181,7 +181,7 @@ void bst_map_##vtype##_print(bst_map_##vtype m)                                 
         func_print;                                                                   \
     }                                                                                 \
     printf("\n");                                                                     \
-    bst_map_##vtype##_print(p->right);                                                \
+    if (p->right) bst_map_##vtype##_print(p->right);                                  \
     if (isroot) printf("}\n");                                                        \
 }                                                                                     \
                                                                                       \
