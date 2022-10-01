@@ -174,9 +174,9 @@ void bst_map_##vtype##_print(bst_map_##vtype m)                                 
     printf("    %lu -> ", p->key);                                                    \
     const vtype value = p->value;                                                     \
     {                                                                                 \
-        bst_map_##vtype m = NULL;                                                     \
-        bst_map_##vtype p = NULL;                                                     \
-        bool isroot = false;                                                          \
+        const bst_map_##vtype m = NULL;                                               \
+        const bst_map_##vtype p = NULL;                                               \
+        const bool isroot = false;                                                    \
         (m, p, isroot);                                                               \
         func_print;                                                                   \
     }                                                                                 \
