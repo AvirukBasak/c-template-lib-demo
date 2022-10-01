@@ -1369,31 +1369,6 @@ static __inline long strtol_l(const char* __s, char** __end_ptr, int __base, loc
 }
 # 277 "/data/data/com.termux/files/usr/include/stdlib.h" 2 3 4
 # 4 "./tlib/bst-map.template.c.h" 2
-
-# 1 "/data/data/com.termux/files/usr/lib/clang/15.0.1/include/inttypes.h" 1 3
-# 21 "/data/data/com.termux/files/usr/lib/clang/15.0.1/include/inttypes.h" 3
-# 1 "/data/data/com.termux/files/usr/include/inttypes.h" 1 3 4
-# 252 "/data/data/com.termux/files/usr/include/inttypes.h" 3 4
-typedef struct {
- intmax_t quot;
- intmax_t rem;
-} imaxdiv_t;
-
-
-
-
-intmax_t imaxabs(intmax_t __i) __attribute__((__const__)) __attribute__((__availability__(android,strict,introduced=19)));
-imaxdiv_t imaxdiv(intmax_t __numerator, intmax_t __denominator) __attribute__((__const__)) __attribute__((__availability__(android,strict,introduced=19)));
-
-
-intmax_t strtoimax(const char* __s, char** __end_ptr, int __base);
-uintmax_t strtoumax(const char* __s, char** __end_ptr, int __base);
-
-
-intmax_t wcstoimax(const wchar_t* __s, wchar_t** __end_ptr, int __base) __attribute__((__availability__(android,strict,introduced=21)));
-uintmax_t wcstoumax(const wchar_t* __s, wchar_t** __end_ptr, int __base) __attribute__((__availability__(android,strict,introduced=21)));
-# 22 "/data/data/com.termux/files/usr/lib/clang/15.0.1/include/inttypes.h" 2 3
-# 6 "./tlib/bst-map.template.c.h" 2
 # 5 "main.c" 2
 
 
