@@ -33,6 +33,7 @@
 /**
  * Generates function prototype definitions and typedefs for the map
  * vtype should be a primary datatype or typdefed (aliased) pointer
+ * format: BstMapDeclarePrototypes(vtype)
  */
 #define BstMapDeclarePrototypes(vtype)                                                \
                                                                                       \
@@ -56,7 +57,8 @@ void bst_map_##vtype##_free(bst_map_##vtype *m);
 /**
  * Defines the chosen map from template: generates the necessary function definitions
  * vtype should be a primary datatype or typdefed (aliased) pointer
- * NOTE: requires MapDeclarePrototypes(vtype, func_print(const value))
+ * format: BstMapDefine(vtype, func_print(const value))
+ * NOTE: requires BstMapDeclarePrototypes(vtype)
  */
 #define BstMapDefine(vtype, func_print)                                               \
                                                                                       \
@@ -172,7 +174,13 @@ void bst_map_##vtype##_print(bst_map_##vtype m)                                 
     bst_map_##vtype##_print(p->left);                                                 \
     printf("    %lu -> ", p->key);                                                    \
     const vtype value = p->value;                                                     \
-    func_print;                                                                       \
+    {                                                                                 \
+        bst_map_##vtype m = NULL;                                                     \
+        bst_map_##vtype p = NULL;                                                     \
+        bool isroot = false;                                                          \
+        (m, p, isroot);                                                               \
+        func_print;                                                                   \
+    }                                                                                 \
     printf("\n");                                                                     \
     bst_map_##vtype##_print(p->right);                                                \
     if (isroot) printf("}\n");                                                        \
