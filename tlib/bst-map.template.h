@@ -143,6 +143,7 @@ bool bst_map_##vtype##_del(bst_map_##vtype m, unsigned long int key)            
         while (tmp->left)                                                             \
             tmp = tmp->left;                                                          \
         p->key = tmp->key;                                                            \
+        p->value = tmp->value;                                                        \
         if (tmp->parent == p) tmp->parent->right = tmp->right;                        \
         else tmp->parent->left = tmp->right;                                          \
         delete(tmp);                                                                  \
